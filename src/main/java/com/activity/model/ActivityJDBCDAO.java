@@ -35,8 +35,8 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, activityVo.getActivity_category_name());
-			pstmt.setString(2, activityVo.getActivity_category_info());
+			pstmt.setString(1, activityVo.getActivityCategoryname());
+			pstmt.setString(2, activityVo.getActivityCategoryinfo());
 
 			pstmt.executeUpdate("set auto_increment_offset=1;");
 			pstmt.executeUpdate("set auto_increment_increment=1;");
@@ -77,9 +77,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, activityVo.getActivity_category_name());
-			pstmt.setString(2, activityVo.getActivity_category_info());
-			pstmt.setInt(3, activityVo.getActivity_category_id());
+			pstmt.setString(1, activityVo.getActivityCategoryname());
+			pstmt.setString(2, activityVo.getActivityCategoryinfo());
+			pstmt.setInt(3, activityVo.getActivityCategoryid());
 
 			pstmt.executeUpdate("set auto_increment_offset=1;");
 			pstmt.executeUpdate("set auto_increment_increment=1;");
@@ -199,9 +199,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			while (rs.next()) {
 				// deptVO 也稱為 Domain objects
 				activityVo = new ActivityVO ();
-				activityVo.setActivity_category_id(rs.getInt("activity_category_id"));
-				activityVo.setActivity_category_name(rs.getString("activity_category_name"));
-				activityVo.setActivity_category_info(rs.getString("activity_category_info"));
+				activityVo.setActivityCategoryid(rs.getInt("activity_category_id"));
+				activityVo.setActivityCategoryname(rs.getString("activity_category_name"));
+				activityVo.setActivityCategoryinfo(rs.getString("activity_category_info"));
 				
 			}
 
@@ -258,9 +258,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 			while (rs.next()) {
 			    activityVO = new ActivityVO();
-			    activityVO.setActivity_category_id(rs.getInt("activity_category_id"));
-			    activityVO.setActivity_category_name(rs.getString("activity_category_name"));
-			    activityVO.setActivity_category_info(rs.getString("activity_category_info"));
+			    activityVO.setActivityCategoryid(rs.getInt("activity_category_id"));
+			    activityVO.setActivityCategoryname(rs.getString("activity_category_name"));
+			    activityVO.setActivityCategoryinfo(rs.getString("activity_category_info"));
 				list.add(activityVO); // Store the row in the list
 			}
 
@@ -329,9 +329,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		// 查詢活動類別
 		List<ActivityVO> list = dao.getAll();
 		for(ActivityVO aActcat:list) {
-			System.out.print(aActcat.getActivity_category_id()+",");
-			System.out.print(aActcat.getActivity_category_name()+",");
-			System.out.print(aActcat.getActivity_category_info());
+			System.out.print(aActcat.getActivityCategoryid()+",");
+			System.out.print(aActcat.getActivityCategoryname()+",");
+			System.out.print(aActcat.getActivityCategoryinfo());
 			System.out.println();
 			
 		} 
