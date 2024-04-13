@@ -121,6 +121,7 @@ form {
 					<th>活動編號</th>
 					<th>活動名稱</th>
 					<th>活動資訊</th>
+					<th>活動圖片</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -130,6 +131,12 @@ form {
 						<td>${actVO.activityCategoryid}</td>
 						<td>${actVO.activityCategoryname}</td>
 						<td>${actVO.activityCategoryinfo}</td>
+						    <c:if test="${actVO.activityCategorypic==null}">
+					        <td>無圖片</td>
+				            </c:if>
+				            <c:if test="${actVO.activityCategorypic!=null}">
+					        <td><img src="<%=request.getContextPath()%>/ShowPicServlet.do?activityCategoryid=${actVO.activityCategoryid}"></td>
+				           </c:if>
 						<td>
 							<form method="post"action="<%=request.getContextPath()%>/activity.do">
 								<input type="submit" value="修改"> <input type="hidden" 
@@ -144,6 +151,7 @@ form {
 			                <input type="hidden" name="action" value="delete">
 			                </form>
 			           </td>
+			                
 					</tr>
 				</c:forEach>
 			</tbody>

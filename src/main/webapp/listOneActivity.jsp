@@ -17,7 +17,7 @@
 
 <body>
 
-<h3>---搜尋的會員資料結果---</h3>
+<h3>---搜尋的活動資料結果---</h3>
 <br>
 <h4><a href="<%=request.getContextPath()%>/selectPage.jsp">回首頁</a></h4>
 <br>
@@ -27,6 +27,7 @@
 		<th>活動編號</th>
 		<th>活動名稱</th>
 		<th>活動資訊</th>
+		<th>活動圖片</th>
 		
 	</tr>
 	
@@ -34,6 +35,14 @@
 			<td>${actVO.activityCategoryid}</td>
 			<td>${actVO.activityCategoryname}</td>
 			<td>${actVO.activityCategoryinfo}</td>
+			
+			<c:if test="${actVO.activityCategorypic==null}">
+		    <td>無圖片</td>
+			</c:if>
+		    <c:if test="${actVO.activityCategorypic!=null}">
+			<td><img src="<%=request.getContextPath()%>/ShowPicServlet.do?activityCategoryid=${actVO.activityCategoryid}"></td>
+			</c:if>
+			
 			
 		
 		</tr>

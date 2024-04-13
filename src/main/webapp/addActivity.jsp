@@ -164,6 +164,10 @@ color: white;
 					<td><input type="text" name="activityCategoryinfo"
 						value="<%=(actVO == null) ? "" : actVO.getActivityCategoryinfo()%>" /></td>
 				</tr>
+				<tr>
+                <td>活動圖片:</td>
+                <td><input type="file" name="activityCategorypic" ></td>
+                </tr>
 			</table>
 			<br> <input type="hidden" name="action" value="insert">
 			<input type="submit" value="送出新增">

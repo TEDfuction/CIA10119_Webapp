@@ -44,7 +44,13 @@ public class ActivityVO implements java.io.Serializable{
 	@Column(name = "activity_category_info")
 	private String activityCategoryinfo;
 	
+	@Column(name = "activity_category_pic")
+	private byte[] activityCategorypic;
 	
+	
+	
+
+
 	public ActivityVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -73,6 +79,15 @@ public class ActivityVO implements java.io.Serializable{
 
 	public void setActivityCategoryinfo(String activityCategoryinfo) {
 		this.activityCategoryinfo = activityCategoryinfo;
+	}
+	
+	public byte[] getActivityCategorypic() {
+		return activityCategorypic;
+	}
+
+
+	public void setActivityCategorypic(byte[] activityCategorypic) {
+		this.activityCategorypic = activityCategorypic;
 	}
 
 	

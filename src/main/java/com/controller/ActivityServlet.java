@@ -122,12 +122,74 @@ public class ActivityServlet extends HttpServlet{
 					String activityCategoryinfo = req.getParameter("activityCategoryinfo");
 					if(activityCategoryinfo == null || activityCategoryinfo.trim().length() == 0) {
 						errorMsgs.add("活動類別資訊:不得為空!");
-					} 
+					}
+					
+					
+					
+					//圖片新增
+					PrintWriter out = res.getWriter();
+					byte[] activityCategorypic = null;
+
+					
+					Part part = req.getPart("activityCategorypic");
+
+					if(part != null) {
+						
+						//上傳資料夾
+						String saveDirectory = "/images_uploaded";
+						String realPath = getServletContext().getRealPath(saveDirectory);
+						File fileSaveDirectory = new File(realPath);
+						if (!fileSaveDirectory.exists()) {
+							 fileSaveDirectory.mkdirs(); // 自動建立上傳資料夾
+						}
+						
+						
+						
+						String filename = part.getSubmittedFileName();
+						
+						
+						if (filename!= null && filename.length()!=0 && part.getContentType()!=null) {
+
+							InputStream is = null;
+
+//							out.println("<PRE>");
+//							
+//							out.println("name: " + part.getName());
+//							out.println("filename:" + filename);
+//							out.println("ContentType" + part.getContentType());
+//							out.println("Size" + part.getSize());
+							
+							File f = new File(fileSaveDirectory, filename);
+//							out.println("File: " + f);
+
+							// 寫入資料夾,上傳成功
+							part.write(f.toString());
+							
+							//InputStream寫入
+							is = part.getInputStream();
+							
+							activityCategorypic = new byte[is.available()];
+							is.read(activityCategorypic);
+											
+							
+							// 上傳圖顯示
+							out.println();
+							out.print("<h4>此為上傳圖片預覽</h4>");
+							out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
+							
+//							out.println("</PRE>");
+							
+							is.close();
+						}
+					}
+					
+					
 								
 					
 					ActivityVO actVO = new ActivityVO();
 					actVO.setActivityCategoryname(activityCategoryname);
 					actVO.setActivityCategoryinfo(activityCategoryinfo);
+					actVO.setActivityCategorypic(activityCategorypic);
 					
 					
 					
@@ -143,7 +205,7 @@ public class ActivityServlet extends HttpServlet{
 					
 					/***************************輸入正確，做資料新增**********************/
 					ActivityService actSvc = new ActivityService();
-					actVO = actSvc.addActivity(activityCategoryname,activityCategoryinfo);
+					actVO = actSvc.addActivity(activityCategoryname,activityCategoryinfo,activityCategorypic);
 					
 					
 					
@@ -222,11 +284,71 @@ public class ActivityServlet extends HttpServlet{
 				if(activityCategoryinfo == null || activityCategoryinfo.trim().length() == 0) {
 					errorMsgs.add("activityCategoryinfo Empty!");
 				}
+				
+				
+				
+				//圖片新增
+				PrintWriter out = res.getWriter();
+				byte[] activityCategorypic = null;
+
+				
+				Part part = req.getPart("activityCategorypic");
+
+				if(part != null) {
+					
+					//上傳資料夾
+					String saveDirectory = "/images_uploaded";
+					String realPath = getServletContext().getRealPath(saveDirectory);
+					File fileSaveDirectory = new File(realPath);
+					if (!fileSaveDirectory.exists()) {
+						 fileSaveDirectory.mkdirs(); // 自動建立上傳資料夾
+					}
+					
+					
+					
+					String filename = part.getSubmittedFileName();
+					
+					
+					if (filename!= null && filename.length()!=0 && part.getContentType()!=null) {
+
+						InputStream is = null;
+
+//						out.println("<PRE>");
+//						
+//						out.println("name: " + part.getName());
+//						out.println("filename:" + filename);
+//						out.println("ContentType" + part.getContentType());
+//						out.println("Size" + part.getSize());
+						
+						File f = new File(fileSaveDirectory, filename);
+//						out.println("File: " + f);
+
+						// 寫入資料夾,上傳成功
+						part.write(f.toString());
+						
+						//InputStream寫入
+						is = part.getInputStream();
+						
+						activityCategorypic = new byte[is.available()];
+						is.read(activityCategorypic);
+										
+						
+						// 上傳圖顯示
+						out.println();
+						out.print("<h4>此為上傳圖片預覽</h4>");
+						out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
+						
+//						out.println("</PRE>");
+						
+						is.close();
+					}
+				}
 						
 				ActivityVO actVO = new ActivityVO();
 				actVO.setActivityCategoryid(activityCategoryid);
 				actVO.setActivityCategoryname(activityCategoryname);
 				actVO.setActivityCategoryinfo(activityCategoryinfo);
+				actVO.setActivityCategorypic(activityCategorypic);
 				
 				//若有錯誤訊息，則帶使用者回到頁面
 				if(!errorMsgs.isEmpty()) {
@@ -239,7 +361,7 @@ public class ActivityServlet extends HttpServlet{
 				
 				/***************************輸入正確，做資料修改**********************/
 				ActivityService actSvc = new ActivityService();
-				actVO = actSvc.updateActivity(activityCategoryid,activityCategoryname,activityCategoryinfo);
+				actVO = actSvc.updateActivity(activityCategoryid,activityCategoryname,activityCategoryinfo,activityCategorypic);
 				
 				
 				

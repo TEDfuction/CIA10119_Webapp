@@ -54,6 +54,11 @@ ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
 	<td><input type="text" name="activityCategoryinfo" value="<%=actVO.getActivityCategoryinfo()%>"></td>
 </tr>
 
+<tr>
+	<td>活動圖片:</td>
+	<td><input type="file" name="activityCategorypic"></td>
+</tr>
+
 
 
 

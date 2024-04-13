@@ -16,13 +16,13 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 	String userid = "root";
 	String passwd = "root";
 
-	private static final String INSERT_STMT = "INSERT INTO activity_category(activity_category_name,activity_category_info) VALUES(?, ?)";
-	private static final String GET_ALL_STMT = "SELECT activity_category_id , activity_category_name, activity_category_info FROM  activity_category";
-	private static final String GET_ONE_STMT = "SELECT activity_category_id , activity_category_name, activity_category_info FROM  activity_category where activity_category_id = ?";
+	private static final String INSERT_STMT = "INSERT INTO activity_category(activity_category_name, activity_category_info, activity_category_pic) VALUES(?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT activity_category_id , activity_category_name, activity_category_info, activity_category_pic FROM  activity_category";
+	private static final String GET_ONE_STMT = "SELECT activity_category_id , activity_category_name, activity_category_info, activity_category_pic FROM  activity_category where activity_category_id = ?";
 
 	private static final String DELETE_ACTIVITY_CATEGORY = "DELETE FROM activity_category where activity_category_id = ?";
 
-	private static final String UPDATE = "UPDATE activity_category set activity_category_name=? ,activity_category_info= ? where activity_category_id = ?";
+	private static final String UPDATE = "UPDATE activity_category set activity_category_name=? ,activity_category_info=? ,activity_category_pic=? where activity_category_id = ?";
 
 	// =================1.insert=================//
 	@Override
@@ -37,6 +37,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 			pstmt.setString(1, activityVo.getActivityCategoryname());
 			pstmt.setString(2, activityVo.getActivityCategoryinfo());
+			pstmt.setBytes(3,  activityVo.getActivityCategorypic());
+			
+			
 
 			pstmt.executeUpdate("set auto_increment_offset=1;");
 			pstmt.executeUpdate("set auto_increment_increment=1;");
@@ -79,11 +82,14 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 			pstmt.setString(1, activityVo.getActivityCategoryname());
 			pstmt.setString(2, activityVo.getActivityCategoryinfo());
-			pstmt.setInt(3, activityVo.getActivityCategoryid());
+			pstmt.setBytes(3,  activityVo.getActivityCategorypic());
+			pstmt.setInt(4, activityVo.getActivityCategoryid());
 
 			pstmt.executeUpdate("set auto_increment_offset=1;");
 			pstmt.executeUpdate("set auto_increment_increment=1;");
 			pstmt.executeUpdate();
+			
+			System.out.println("資料更新成功!");
 
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -109,6 +115,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		}
 
 	}
+	
 	// =================3.delete=================//
 	@Override
 	public void delete(Integer activity_category_id) {
@@ -181,7 +188,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 	@Override
 	public ActivityVO findByPrimaryKey(Integer activity_category_id) {
 
-		ActivityVO activityVo = null;
+		ActivityVO activityVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -198,10 +205,12 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 			while (rs.next()) {
 				// deptVO 也稱為 Domain objects
-				activityVo = new ActivityVO ();
-				activityVo.setActivityCategoryid(rs.getInt("activity_category_id"));
-				activityVo.setActivityCategoryname(rs.getString("activity_category_name"));
-				activityVo.setActivityCategoryinfo(rs.getString("activity_category_info"));
+				activityVO = new ActivityVO ();
+				activityVO.setActivityCategoryid(rs.getInt("activity_category_id"));
+				activityVO.setActivityCategoryname(rs.getString("activity_category_name"));
+				activityVO.setActivityCategoryinfo(rs.getString("activity_category_info"));
+				activityVO.setActivityCategorypic(rs.getBytes("activity_category_pic"));
+				
 				
 			}
 
@@ -237,7 +246,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 				}
 			}
 		}
-		return activityVo;
+		return activityVO;
 	}
 	// =================5.查詢全部=================//
 	@Override
@@ -257,10 +266,12 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-			    activityVO = new ActivityVO();
-			    activityVO.setActivityCategoryid(rs.getInt("activity_category_id"));
-			    activityVO.setActivityCategoryname(rs.getString("activity_category_name"));
-			    activityVO.setActivityCategoryinfo(rs.getString("activity_category_info"));
+				activityVO = new ActivityVO();
+				activityVO.setActivityCategoryid(rs.getInt("activity_category_id"));
+				activityVO.setActivityCategoryname(rs.getString("activity_category_name"));
+				activityVO.setActivityCategoryinfo(rs.getString("activity_category_info"));
+				activityVO.setActivityCategorypic(rs.getBytes("activity_category_pic"));
+			    
 				list.add(activityVO); // Store the row in the list
 			}
 

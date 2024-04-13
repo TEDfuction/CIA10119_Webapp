@@ -9,25 +9,26 @@ public class ActivityService {
 		dao = new ActivityJDBCDAO();
 	}
 
-	public ActivityVO addActivity(String activityCategoryname,String activityCategoryinfo) {
+	public ActivityVO addActivity(String activityCategoryname,String activityCategoryinfo, byte[] activityCategorypic) {
 
 		ActivityVO actVO = new ActivityVO();
 
 		actVO.setActivityCategoryname(activityCategoryname);
 		actVO.setActivityCategoryinfo(activityCategoryinfo);
+		actVO.setActivityCategorypic(activityCategorypic);
 
 		dao.insert(actVO);
 		return actVO;
 	}
 
-	public ActivityVO updateActivity(Integer activityCategoryid, String activityCategoryname,
-			String activityCategoryinfo) {
+	public ActivityVO updateActivity(Integer activityCategoryid, String activityCategoryname,String activityCategoryinfo, byte[] activityCategorypic) {
 
 		ActivityVO actVO = new ActivityVO();
 
 		actVO.setActivityCategoryid(activityCategoryid);
 		actVO.setActivityCategoryname(activityCategoryname);
 		actVO.setActivityCategoryinfo(activityCategoryinfo);
+		actVO.setActivityCategorypic(activityCategorypic);
 
 		dao.update(actVO);
 		return actVO;
