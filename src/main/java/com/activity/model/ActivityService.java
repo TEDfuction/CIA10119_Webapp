@@ -6,7 +6,9 @@ public class ActivityService {
 	private ActivityDAO_interface dao;
 
 	public ActivityService() {
-		dao = new ActivityJDBCDAO();
+		//dao = new ActivityJDBCDAO();
+		dao = new ActivityHibernateDAO();
+		
 	}
 
 	public ActivityVO addActivity(String activityCategoryname,String activityCategoryinfo, byte[] activityCategorypic) {

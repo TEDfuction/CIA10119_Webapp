@@ -2,6 +2,8 @@ package com.activity.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -32,10 +34,11 @@ import javax.persistence.Table;
 	
 
 @Entity
-@Table(name = "cactus")
+@Table(name = "activity_category")
 public class ActivityVO implements java.io.Serializable{
 	@Id
 	@Column(name = "activity_category_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer activityCategoryid;
 	
 	@Column(name = "activity_category_name")
@@ -44,7 +47,7 @@ public class ActivityVO implements java.io.Serializable{
 	@Column(name = "activity_category_info")
 	private String activityCategoryinfo;
 	
-	@Column(name = "activity_category_pic")
+	@Column(name = "activity_category_pic",columnDefinition = "longblob")
 	private byte[] activityCategorypic;
 	
 	

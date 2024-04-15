@@ -146,9 +146,9 @@ form {
 						</td>
 						<td>
 			                <form METHOD="post" ACTION="<%=request.getContextPath()%>/activity.do">
-			                <input type="submit" value="刪除">
 			                <input type="hidden" name="activityCategoryid"  value="${actVO.activityCategoryid}">
 			                <input type="hidden" name="action" value="delete">
+			                <input type="submit" value="刪除">
 			                </form>
 			           </td>
 			                
