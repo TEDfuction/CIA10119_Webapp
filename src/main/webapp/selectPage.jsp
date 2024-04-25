@@ -121,9 +121,9 @@ input[type="submit"]:hover, a.button:hover {
 			<li><a href="<%=request.getContextPath()%>/listAllActivity.jsp"
 				class="button">秀出所有資料</a></li>
 
-			<form method="post" action="<%=request.getContextPath()%>/activity.do">
-				<li><label>請輸入活動類別編號</label> 
-				<input type="text" name="activityCategoryid" placeholder="輸入活動類別名稱..."></li>
+			<form method="post" action="<%=request.getContextPath()%>/activityItem.do">
+				<li><label>請輸入活動項目編號</label> 
+				<input type="text" name="activityItemid" placeholder="輸入活動項目名稱..."></li>
 				<li>
 					<input type="hidden" name="action" value="findByPrimaryKey">
 					<input type="submit" value="送出" class="button"> 
@@ -132,13 +132,13 @@ input[type="submit"]:hover, a.button:hover {
 				
 				
 				
-				<li><jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" /> 
+				<li><jsp:useBean id="aitSvc" scope="page" class="com.activity.itemmodel.ActivityItemService" /> 
 				
-			<form method="post" action="<%=request.getContextPath()%>/activity.do">
-				<label>請輸入活動類別編號</label>
-			    <select size="1" name="activityCategoryid">
-			    	<c:forEach var ="actVO" items="${actSvc.all}">
-			        <option value="${actVO.activityCategoryid}">${actVO.activityCategoryid}
+			<form method="post" action="<%=request.getContextPath()%>/activityItem.do">
+				<label>請輸入活動項目編號</label>
+			    <select size="1" name="activityItemid">
+			    	<c:forEach var ="aitVO" items="${aitSvc.all}">
+			        <option value="${aitVO.activityItemid}">${aitVO.activityItemid}
 			        </c:forEach>
 			        </select>
 				</li>

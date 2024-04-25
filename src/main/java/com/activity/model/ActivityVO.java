@@ -1,11 +1,17 @@
 package com.activity.model;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.activity.itemmodel.ActivityItemVO;
 
 //public class ActivityVO implements java.io.Serializable{
 //	private Integer activity_category_id;
@@ -41,6 +47,10 @@ public class ActivityVO implements java.io.Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer activityCategoryid;
 	
+	//PK一對多
+	@OneToMany(mappedBy = "activityCategory", cascade = CascadeType.ALL)
+	private Set<ActivityItemVO> aits;
+	
 	@Column(name = "activity_category_name")
 	private String activityCategoryname;
 	
@@ -49,6 +59,8 @@ public class ActivityVO implements java.io.Serializable{
 	
 	@Column(name = "activity_category_pic",columnDefinition = "longblob")
 	private byte[] activityCategorypic;
+	
+	
 	
 	
 	
@@ -92,8 +104,20 @@ public class ActivityVO implements java.io.Serializable{
 	public void setActivityCategorypic(byte[] activityCategorypic) {
 		this.activityCategorypic = activityCategorypic;
 	}
-
 	
+	public Set<ActivityItemVO> getAits() {
+		return aits;
+	}
+
+
+	public void setAits(Set<ActivityItemVO> aits) {
+		this.aits = aits;
+	}
+
+	@Override
+	public String toString() {
+		return "ActivityVO [activityCategoryid=" + activityCategoryid + ", activityCategoryname=" + activityCategoryname + ", activityCategorypic=" + activityCategorypic + "]";
+	}
 	
 	
 	

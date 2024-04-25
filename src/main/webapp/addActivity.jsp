@@ -1,12 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.activity.model.*"%>
+<%-- <%@ page import="com.activity.model.*"%> --%>
+<%@ page import="com.activity.itemmodel.*"%>
 
 <%
 //見com.emp.controller.EmpServlet.java第238行存入req的empVO物件 (此為輸入格式有錯誤時的empVO物件)
-ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
+//ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
+ActivityItemVO aitVO = (ActivityItemVO) request.getAttribute("aitVO");
 %>
-<%=actVO == null%>${actVO.activityCategoryid}<!-- line100 -->
+<%-- <%=actVO == null%>${actVO.activityCategoryid}<!-- line100 --> --%>
+<%=aitVO == null%>${aitVO.activityItemid}<!-- line100 -->
+
+
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -151,23 +156,69 @@ color: white;
 			</ul>
 		</c:if>
 				
+					
+					
 
-		<form method="post" action="activity.do" enctype="multipart/form-data">
+<!-- 		<form method="post" action="activity.do" enctype="multipart/form-data"> -->
+            <form method="post" action="activityItem.do" enctype="multipart/form-data"> 
 			<table>
 				<tr>
-					<th>活動類別名稱</th>
-					<td><input type="text" name="activityCategoryname"
-						value="<%=(actVO == null) ? "" : actVO.getActivityCategoryname()%>" /></td>
+<!-- 					<th>活動類別名稱</th> -->
+<!-- 					<td><input type="text" name="activityCategoryname" -->
+<%-- 						value="<%=(actVO == null) ? "" : actVO.getActivityCategoryname()%>" /></td> --%>
+						
+					<th>活動項目名稱</th>
+					<td><input type="text" name="activityItemname"
+						value="<%=(aitVO == null) ? "" : aitVO.getActivityItemname()%>" /></td>
 				</tr>
 				<tr>
-					<th>活動類別資訊</th>
-					<td><input type="text" name="activityCategoryinfo"
-						value="<%=(actVO == null) ? "" : actVO.getActivityCategoryinfo()%>" /></td>
+<!-- 					<th>活動類別資訊</th> -->
+<!-- 					<td><input type="text" name="activityCategoryinfo" -->
+<%-- 						value="<%=(actVO == null) ? "" : actVO.getActivityCategoryinfo()%>" /></td> --%>
+						
+					<th>活動項目簡述</th>
+					<td><input type="text" name="activityItemdescription"
+						value="<%=(aitVO == null) ? "" : aitVO.getActivityItemdescription()%>" /></td>
+						
+				</tr>
+				
+				<tr>
+					<th>活動項目資訊</th>
+					<td><input type="text" name="activityIteminfo"
+						value="<%=(aitVO == null) ? "" : aitVO.getActivityIteminfo()%>" /></td>
+						
+						
 				</tr>
 				<tr>
-                <td>活動圖片:</td>
-                <td><input type="file" name="activityCategorypic" ></td>
-                </tr>
+					<th>活動項目價格</th>
+					<td><input type="text" name="activityItemprice"
+						value="<% if (aitVO != null && aitVO.getActivityItemprice() != null) out.print(aitVO.getActivityItemprice()); %>" /></td>
+						
+						
+				</tr>
+				
+				<tr>
+			        <th>活動項目狀態</th>
+				    <td><select id="activityItemstate"name="activityItemstate">
+				    <option value="true"
+					<%=aitVO != null && aitVO.getActivityItemstate() ? " selected" : ""%>>上架</option>
+				    <option value="false"
+					<%=aitVO != null && !aitVO.getActivityItemstate() ? " selected" : ""%>>下架</option></td>
+			       </select>
+		        </tr>
+		        
+				<tr>
+					<th>活動類別編號</th>
+					<td><input type="text" name="activityCategoryid"
+ 						value="<%= ((request.getParameter("activtiyCategoryid") == null) ? "" : request.getParameter("activtiyCategoryid")) %>" /></td> 
+						
+				</tr>
+				
+				
+<!-- 				<tr> -->
+<!--                 <td>活動圖片:</td> -->
+<!--                 <td><input type="file" name="activityCategorypic" ></td> -->
+<!--                 </tr> -->
 			</table>
 			<br> <input type="hidden" name="action" value="insert">
 			<input type="submit" value="送出新增">

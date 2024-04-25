@@ -19,5 +19,6 @@
     	
     
     	<mapping class="com.activity.model.ActivityVO"></mapping>
+    	<mapping class="com.activity.itemmodel.ActivityItemVO"></mapping>
     </session-factory>
 </hibernate-configuration>
